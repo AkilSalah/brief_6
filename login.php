@@ -30,10 +30,10 @@ if (!empty($_POST["Email"]) && !empty($_POST["Password"])) {
 
             if ($utilisateur["id_role"] == 1) {
                 header("Location: admin_home.php");
-                exit();
+              
             } else {
                 header("Location: client.php");
-                exit();
+              
             }
         } else {
             echo "Mot de passe incorrect.";

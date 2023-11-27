@@ -20,7 +20,7 @@
     $email = $_POST["Email"];
     $password = $_POST["password"]; 
     session_start();
-    $_SESSION["Nom"] = $nom;
+    $_SESSION["email"] = $email;
     $requete = mysqli_query($con,"insert into utilisateur (nom ,prenom ,email ,pass) values ('$nom' ,'$prenom','$email','$password') ");
     if ($requete ) {
 

@@ -84,10 +84,6 @@ td {
 
 }
 
-img {
-    height: 25px;
-    width: 25px;
-}
 
 tr:nth-child(2n) {
     background-color: #f6f8f8;
@@ -101,4 +97,9 @@ tr:nth-child(2n) td {
 td a {
     width: auto;
     margin-left: 35PX;
+}
+
+img {
+    height: 25px;
+    width: 25px;
 }

@@ -2,8 +2,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
     <link rel='stylesheet' type='text/css' media='screen' href='navbar.css'>
     <script src='main.js'></script>
+    <style>
+        
+    </style>
 
-    <div class="container">
+    <div class="container-fluid px-0">
         <nav>
             <ul>
                 <li>
