@@ -20,23 +20,22 @@ if(isset($_SESSION["email"])) {
 
 if(isset($_POST["client_submit"])) {
   $p = 2;
-$qe = "UPDATE utilisateur SET id_role = '$p' WHERE email = '$email'";
-  $requete = mysqli_query($con, $qe);
+  $requete = mysqli_query($con, " UPDATE utilisateur SET id_role = '$p' WHERE email = '$email'");
   if($requete) {
-        header("location: client.php");
+        header("location:login.php");
         exit();
     } else {
         echo "WARNING";
     }
 } elseif(isset($_POST["admin_submit"])) {
   $p = 1;
-  $requete = mysqli_query($con, " UPDATE utilisateur SET id_role = '$p' WHERE nom = '$nom'");
+  $requete = mysqli_query($con, " UPDATE utilisateur SET id_role = '$p' WHERE email = '$email'");
     if($requete) {
-        header("location:admin_home.php"); 
+        header("location:login.php"); 
         exit();
     } else {
         echo "WARNING";
-    }
+  }
 } 
 ?>
    <div class="text-center " >
@@ -44,24 +43,30 @@ $qe = "UPDATE utilisateur SET id_role = '$p' WHERE email = '$email'";
     <h3 >Bonjour ! Veuillez choisir votre rôle avant d'accéder à la plateforme.</h3>
    </div>
 
- <div class="row d-flex justify-content-center gap-5 mt-5 ">
+ <div class=" d-flex justify-content-center gap-5 mt-5 ">
             <div class="card  " style="width: 18rem;">
-        <img src="img/admin.png" class="card-img-top" alt="...">
+            <img src="img/admin.png" class="card-img-top m-auto w-50" alt="...">
         <div class="card-body">
           <h5 class="card-title text-center mt-3">A D M I N</h5>
+          <div class="text-center">
           <form action="" method="post">
-        <button type="submit" name="admin_submit" class="btn btn-success mt-3">Admin Go</button>
-    </form>
+              <button type="submit" name="admin_submit" class="btn btn-success mt-4">Admin Go</button>
+          </form>
+      </div>
+
         </div>
       </div>
 
       <div class="card " style="width: 18rem;">
-        <img src="img/R.png" class="card-img-top" alt="...">
+        <img src="img/R.png" class="card-img-top m-auto w-50" alt="...">
         <div class="card-body">
           <h5 class="card-title text-center mt-3">C L I E N T</h5>
-          <form action="" method="post">
-        <button type="submit" name="client_submit" class="btn btn-success mt-3">Client Go</button>
+          <div class="text-center">
+         <form action="" method="post">
+        <button type="submit" name="client_submit" class="btn btn-success mt-4 ">Client Go</button>
         </form>
+          </div>
+          
         </div>
       </div>
     </div>

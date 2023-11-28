@@ -27,7 +27,7 @@ if (!empty($_POST["Email"]) && !empty($_POST["Password"])) {
         if ($utilisateur && $password === $utilisateur["Pass"]) {
             $_SESSION["id_utilisateur"] = $utilisateur["id_utilisateur"];
 
-            if ($utilisateur["id_role"] == 1) {
+            if ($utilisateur["id_role"] == '1') {
                 header("Location: admin_home.php");
               
             } else {

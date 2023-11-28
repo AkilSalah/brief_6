@@ -1,13 +1,13 @@
 <?php 
 include_once "./connexion.php";
 session_start();
-
+$id_u = $_SESSION["id_utilisateur"];
 if (isset($_GET["id_pro"])) {
     $id_pro = $_GET["id_pro"];
     if(isset($_SESSION["id_utilisateur"])) {
-        $iduser = $_SESSION["id_utilisateur"];
-        $req_panier = mysqli_query($con, "INSERT INTO panier (`id_utilisateur`, `id_produit`) VALUES ($iduser,  $id_pro ) ");
-        
+       
+        $req_panier = mysqli_query($con, "INSERT INTO panier (`id_utilisateur`, `id_produit`) VALUES ($id_u,  $id_pro ) ");
+         
         if($req_panier){
             header("location: client.php");
             exit();
@@ -72,7 +72,7 @@ if (isset($_GET["id_pro"])) {
             <a class="nav-link d-flex align-items-center" href="panier.php">
             <i id="shop" class="fas fa-shopping-cart fa-lg me-2"></i>
             <?php 
-                $nb = mysqli_query($con, "SELECT COUNT(*) AS nombre_de_lignes FROM panier");
+                $nb = mysqli_query($con, "SELECT COUNT(*) AS nombre_de_lignes FROM panier where id_utilisateur = '$id_u'");
                 if ($nb) {
                     while ($row = mysqli_fetch_assoc($nb)):
                      ?>
@@ -116,9 +116,7 @@ if (isset($_GET["id_pro"])) {
                 </div>
             </div>
     </section>
-    <?php
-    include_once("connexion.php");
-    ?>
+   
     <section style="background-color: #eee;" id="product">
         <h1 class="Product text-center mt-5"> Nos Produits</h1>
         <nav class="navbar ">
@@ -141,7 +139,7 @@ if (isset($_GET["id_pro"])) {
         </nav>
 
         <?php 
-             $produit = mysqli_query($con,"SELECT * FROM produit JOIN categorie ON categorie.id_categorie = produit.id_categorie") ;
+             $produit = mysqli_query($con,"SELECT * FROM produit JOIN categorie ON categorie.id_categorie = produit.id_categorie ") ;
 
             if (isset($_GET['search'])) {
             $search = mysqli_real_escape_string($con, $_GET['search']);

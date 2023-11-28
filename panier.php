@@ -15,7 +15,9 @@
 <body>
     <?php
     include_once("connexion.php");
-
+    session_start();
+    if(isset($_SESSION["id_utilisateur"]))
+        $id_u= $_SESSION["id_utilisateur"];
     ?>
     <section class="h-100 h-custom" style="background-color: #d2c9ff;">
         <div class="container py-5 h-100">
@@ -29,20 +31,24 @@
                                         <div class="d-flex justify-content-between align-items-center mb-5">
                                             <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
                                             <?php
-                                            session_start();
-                                            if(isset($_SESSION["id_utilisateur"])) {
-                                                $id_u = $_SESSION["id_utilisateur"];
-                                                echo "<h6 class='mb-0 text-muted'>$id_u</h6>";
+
+                                            $p = mysqli_query($con, "SELECT COUNT(*) AS nombre_de_lignes FROM panier where id_utilisateur = $id_u");
+                                            if ($p) {
+                                                $result = mysqli_fetch_assoc($p);
+                                                echo "<h6 class='mb-0 text-muted'>" . $result["nombre_de_lignes"] . " pièces</h6>";
+
                                             }
                                             ?>
                                         </div>
-                                       
+    
                                         <hr class="my-4">
                                             <?php 
-                                                $product_info =mysqli_query($con,"select * from panier join produit on produit.id_produit=panier.id_produit ");
+                                           
+                                            
+                                                $product_info =mysqli_query($con,"select * from panier join produit on produit.id_produit=panier.id_produit where id_utilisateur = '$id_u' ");
                                                 if($product_info)
                                                    while($result_info = mysqli_fetch_assoc($product_info) ) :  
-                                            
+                            
                                             ?>
                                         <div class="row mb-4 d-flex justify-content-between align-items-center">
                                             <div class="col-md-2 col-lg-2 col-xl-2">
@@ -82,7 +88,7 @@
                                         <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                                         <hr class="my-4">
                                         <?php
-                                         $sum = mysqli_query($con, 'SELECT SUM(prix_produit) AS somme FROM panier JOIN produit ON produit.id_produit = panier.id_produit ');
+                                         $sum = mysqli_query($con, "SELECT SUM(prix_produit) AS somme FROM panier JOIN produit ON produit.id_produit = panier.id_produit where panier.id_utilisateur = '$id_u'");
 
                                     if ($sum) {
                                         $result_info = mysqli_fetch_assoc($sum);

@@ -20,7 +20,6 @@
     display: flex;
     flex-direction: row;
   }
-
    </style>
  </head>
  <body class="px-0 mx-0">
