@@ -1,3 +1,21 @@
+<?php 
+include_once "./connexion.php";
+ session_start();
+   
+    
+    if (isset($_GET["id_pro"])) {
+        $id_pro = $_GET["id_pro"];
+        if(isset($_SESSION["id_utilisateur"])) 
+        $iduser = $_SESSION["id_utilisateur"];
+        $req_panier = mysqli_query($con, "INSERT INTO panier (`id_utilisateur`, `id_produit`) VALUES ($iduser,  $id_pro ) ");
+        if($req_panier){
+            header("location: client.php");
+            exit();
+        }else{
+            echo "WARNING";
+        }
+    }
+?>
 <!DOCTYPE html>
 <html>
 
@@ -44,12 +62,21 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item">
-                <a class="nav-link"  href="panier.php">
-                    <i id="shop" class="fas fa-shopping-cart fa-lg">
-                        
-                    0</i>
-                </a>
+            <li class="nav-item ">
+            <a class="nav-link d-flex align-items-center" href="panier.php">
+            <i id="shop" class="fas fa-shopping-cart fa-lg me-2"></i>
+            <?php 
+                $nb = mysqli_query($con, "SELECT COUNT(*) AS nombre_de_lignes FROM panier");
+                if ($nb) {
+                    while ($row = mysqli_fetch_assoc($nb)):
+                     ?>
+                    <p class="m-0"><?= $row["nombre_de_lignes"] ?></p>
+                 <?php 
+                    endwhile; 
+                }
+            ?>
+        </a>
+                  
             </li>
         </ul>
     </div>
@@ -146,7 +173,7 @@
                             <p>Catégorie : <?=$row["nom_categorie"] ?></p>
                         </a>
                         <h6 class="mb-3"> Prix :<?=$row["prix_produit"] ?> DH</h6>
-                        <a class='table-link btn btn-success ' href='panier.php?id-pro=<?= $row['id_produit']; ?>'>Commander</a>
+                        <a class='table-link btn btn-success' href='client.php?id_pro=<?= $row['id_produit']?>'>Commander</a>
 
                     </div>
                 </div>
@@ -155,6 +182,27 @@
     </div>
 </div>
     </section>
+
+    <footer class="text-center text-white mt-5" ">
+      <div class="container p-4">
+        <section class="">
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-6">
+              <div class="ratio ratio-16x9">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/A6rRn9jN-bw?si=_MTBoywrEpkH5gPi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="text-center p-3 bg-success" ">
+        © 2023 Copyright:
+        <a class="text-white" href="https://intranet.youcode.ma/profile">CodeX.com</a>
+      </div>
+
+    </footer>
 
 </body>
 

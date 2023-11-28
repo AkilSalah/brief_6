@@ -14,13 +14,13 @@
 <?php 
 include_once("connexion.php");
 session_start();
-if(isset($_SESSION["Nom"])) {
-  $nom = $_SESSION["Nom"];
+if(isset($_SESSION["email"])) {
+  $email = $_SESSION["email"];
 }
 
 if(isset($_POST["client_submit"])) {
   $p = 2;
-$qe = "UPDATE utilisateur SET id_role = '$p' WHERE nom = '$nom'";
+$qe = "UPDATE utilisateur SET id_role = '$p' WHERE email = '$email'";
   $requete = mysqli_query($con, $qe);
   if($requete) {
         header("location: client.php");
