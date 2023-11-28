@@ -19,7 +19,6 @@ session_start();
 if (!empty($_POST["Email"]) && !empty($_POST["Password"])) {
     $email = $_POST["Email"];
     $password = $_POST["Password"];
-
     $requete = mysqli_query($con, "SELECT * FROM utilisateur WHERE email = '$email'");
 
     if ($requete) {

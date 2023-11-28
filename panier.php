@@ -15,7 +15,6 @@
 <body>
     <?php
     include_once("connexion.php");
-    session_start();
 
     ?>
     <section class="h-100 h-custom" style="background-color: #d2c9ff;">
@@ -30,13 +29,14 @@
                                         <div class="d-flex justify-content-between align-items-center mb-5">
                                             <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
                                             <?php
-                                                $user =mysqli_query($con,"SELECT COUNT(*) AS nombre_de_lignes FROM panier");
-                                                if($user){
-                                                    $result=mysqli_fetch_assoc($user);
-                                                }     
-                                                ?>
-                                            <h6 class="mb-0 text-muted"><?=$result["nombre_de_lignes"]?> Piéces</h6>
+                                            session_start();
+                                            if(isset($_SESSION["id_utilisateur"])) {
+                                                $id_u = $_SESSION["id_utilisateur"];
+                                                echo "<h6 class='mb-0 text-muted'>$id_u</h6>";
+                                            }
+                                            ?>
                                         </div>
+                                       
                                         <hr class="my-4">
                                             <?php 
                                                 $product_info =mysqli_query($con,"select * from panier join produit on produit.id_produit=panier.id_produit ");

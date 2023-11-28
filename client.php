@@ -1,28 +1,34 @@
 <?php 
 include_once "./connexion.php";
- session_start();
-   
-    
-    if (isset($_GET["id_pro"])) {
-        $id_pro = $_GET["id_pro"];
-        if(isset($_SESSION["id_utilisateur"])) 
+session_start();
+
+if (isset($_GET["id_pro"])) {
+    $id_pro = $_GET["id_pro"];
+    if(isset($_SESSION["id_utilisateur"])) {
         $iduser = $_SESSION["id_utilisateur"];
         $req_panier = mysqli_query($con, "INSERT INTO panier (`id_utilisateur`, `id_produit`) VALUES ($iduser,  $id_pro ) ");
+        
         if($req_panier){
             header("location: client.php");
             exit();
-        }else{
-            echo "WARNING";
+        } else {
+            echo "Erreur lors de l'ajout au panier.";
         }
+    } else {
+        header("location: login.php");
+        exit();
     }
+}
 ?>
+
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Client</title>
+    <title>client</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
