@@ -62,7 +62,7 @@ if (!empty($_POST["Email"]) && !empty($_POST["Password"])) {
                      <a href="inscription.php"><input type="submit" name="submit" value="Connexion"></a> 
                     </div>
                     <div class="register">
-                        <p>je n'ai pas de compte <a href="inscription.php"> <span class="text-warning">Inscrit</span></a></p>
+                        <p>Vous n’avez pas de compte ?  <a href="inscription.php"> <span class="text-primary"> Inscrivez-vous</span></a></p>
                     </div>
                 </form>
             </div>

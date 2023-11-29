@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="register">
-                        <p>Veuillez choisir votre role</p>
+                    <p> Vous avez un compte ?  <a href="login.php"><span class="text-primary">Connectez-vous</span></a></p>
                     </div>
                 </form>
             </div>

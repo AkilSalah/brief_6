@@ -1,3 +1,30 @@
+<?php
+include_once("connexion.php");
+session_start();
+
+if (isset($_SESSION["id_utilisateur"])) {
+    $id_u = $_SESSION["id_utilisateur"];
+    $id_pro = $_SESSION["id_pro"];
+
+    $check = mysqli_query($con, "SELECT * FROM panier WHERE id_utilisateur = $id_u");
+
+    if (mysqli_num_rows($check) > 0) {
+        if (isset($_POST["valider"])) {
+            while ($row = mysqli_fetch_assoc($check)) {
+                $idproduct = $row['id_produit'];
+                $insertCommande = "INSERT INTO commande (date_commande, id_utilisateur, id_produit) VALUES (NOW(), $id_u, $idproduct)";
+                mysqli_query($con, $insertCommande);
+            }
+
+            $delete = mysqli_query($con, "DELETE FROM panier WHERE id_utilisateur = $id_u");
+
+            
+        }
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -12,16 +39,7 @@
     <script src='main.js'></script>
 </head>
 <body>
-    <?php
-    include_once("connexion.php");
-    session_start();
 
-        if (isset($_SESSION["id_utilisateur"]) && isset($_SESSION["id_produit"])) {
-            $id_u = $_SESSION["id_utilisateur"];
-            $id_pro = $_SESSION["id_produit"];
-        }
-            
-    ?>
     <section class="h-100 h-custom" style="background-color: #d2c9ff;">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -49,7 +67,7 @@
                                            
                                             
                                                 $product_info =mysqli_query($con,"select * from panier join produit on produit.id_produit=panier.id_produit where id_utilisateur = '$id_u' ");
-                                                if($product_info)
+                                                if($product_info->num_rows > 0)
                                                    while($result_info = mysqli_fetch_assoc($product_info) ) :  
                             
                                             ?>
@@ -99,32 +117,14 @@
                                     ?>
                                     <div class="d-flex justify-content-between mb-5">
                                         <h5 class="text-uppercase">Total price</h5>
-                                        <h5><?=$result_info["somme"] ?> Dhs</h5>
+                                        <h5><?=$result_info["somme"] ?>Dhs</h5>
+                                       
                                     </div>
-                                    <?php
-                                    if (isset($_POST["valider"])) {
-
-                                        $add_commande = mysqli_query($con, "INSERT INTO commande ('date_commande', 'id_utilisateur', 'id_produit') VALUES (NOW(), $id_u, $id_pro)");
-                                        
-                                        if ($add_commande) {
-                                            $free_panier = mysqli_query($con, "DELETE FROM panier WHERE id_utilisateur = $id_u");
-                                            
-                                            if ($free_panier) {
-                                                echo "La commande a été envoyée.";
-                                            } else {
-                                                echo "Erreur lors de la suppression des produits du panier.";
-                                            }
-                                        } else {
-                                            echo "Erreur lors de l'insertion de la commande.";
-                                        }
-                                    }
-                                    ?>
-
-                                    <form action="" method="post">
+                           
+                                    <form method="post">
                                         <input type="submit" value="Valider" name="valider" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">
                                     </form>
-
-
+                                    
                                     </div>
                                 </div>
                             </div>

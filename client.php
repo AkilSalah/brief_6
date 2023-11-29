@@ -4,6 +4,7 @@ session_start();
 $id_u = $_SESSION["id_utilisateur"];
 if (isset($_GET["id_pro"])) {
     $id_pro = $_GET["id_pro"];
+     $_SESSION["id_pro"] = $id_pro;
     if(isset($_SESSION["id_utilisateur"])) {
        
         $req_panier = mysqli_query($con, "INSERT INTO panier (`id_utilisateur`, `id_produit`) VALUES ($id_u,  $id_pro ) ");
@@ -47,6 +48,7 @@ if (isset($_GET["id_pro"])) {
 </head>
 
 <body>
+    
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">PLANTS</a>
