@@ -15,6 +15,7 @@
 <?php
 include("connexion.php");
 session_start();
+session_destroy();
 
 if (!empty($_POST["Email"]) && !empty($_POST["Password"])) {
     $email = $_POST["Email"];
@@ -25,7 +26,9 @@ if (!empty($_POST["Email"]) && !empty($_POST["Password"])) {
         $utilisateur = mysqli_fetch_assoc($requete);
 
         if ($utilisateur && $password === $utilisateur["Pass"]) {
+            session_start();
             $_SESSION["id_utilisateur"] = $utilisateur["id_utilisateur"];
+           
 
             if ($utilisateur["id_role"] == '1') {
                 header("Location: admin_home.php");

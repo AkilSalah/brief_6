@@ -101,7 +101,7 @@ if (isset($_GET["id_pro"])) {
     </section>
     <section class="sec2 " id="about" >
         <div class="container">
-            <h3 class="text-center mt-3">Bienvenue dans votre espace dédié à l'amour des plantes sur Plants ! </h3>
+            <h3 class="text-center mt-3">Bienvenue dans votre espace dédié à l'amour des plantes sur Plants !   </h3>
             <div class="row  d-flex mt-5 ">
                 <div class="col-xl-6 col-lg-6  col-md-9 col-sm-10 ">
                     <img src="img/petits-cactus-fond-mur-blanc.jpg" alt="" class="w-100">
